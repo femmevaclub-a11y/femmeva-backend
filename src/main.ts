@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   console.log(
-    '🔥 FEMMEVA API — Versión de despliegue:',
+    '🔥 FEMMEVA API — Versión de implementación:',
     new Date().toISOString(),
   );
 
