@@ -12,13 +12,10 @@ import { TrackingModule } from './tracking/tracking.module';
 
     TypeOrmModule.forRootAsync({
       useFactory: () => {
-        console.log(
-          '>>> DATABASE_URL en runtime:',
-          process.env.DATABASE_URL?.slice(0, 50),
-        ); // 👈 para ver en logs
+        console.log('>>> DATABASE_URL en runtime:', process.env.DATABASE_URL);
         return {
           type: 'postgres',
-          url: process.env.DATABASE_URL, // 👈 SOLO esto, sin host/port/user/password
+          url: process.env.DATABASE_URL, // 👈 SOLO usamos la URL, nada de localhost
           autoLoadEntities: true,
           synchronize: true,
         };
