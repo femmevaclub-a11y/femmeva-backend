@@ -3,7 +3,6 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 
-// IMPORTA TUS MÓDULOS
 import { LeadsModule } from './leads/leads.module';
 import { TrackingModule } from './tracking/tracking.module';
 
@@ -12,15 +11,18 @@ import { TrackingModule } from './tracking/tracking.module';
     ConfigModule.forRoot({ isGlobal: true }),
 
     TypeOrmModule.forRootAsync({
-      useFactory: () => ({
-        type: 'postgres',
-        host: process.env.DB_HOST,
-        port: parseInt(process.env.DB_PORT ?? '5432', 10),
-        username: process.env.DB_USER,
-        password: process.env.DB_PASS,
-        database: process.env.DB_NAME,
-        autoLoadEntities: true,
-      }),
+      useFactory: () => {
+        console.log(
+          '>>> DATABASE_URL en runtime:',
+          process.env.DATABASE_URL?.slice(0, 50),
+        ); // 👈 para ver en logs
+        return {
+          type: 'postgres',
+          url: process.env.DATABASE_URL, // 👈 SOLO esto, sin host/port/user/password
+          autoLoadEntities: true,
+          synchronize: true,
+        };
+      },
     }),
 
     LeadsModule,
