@@ -27,5 +27,10 @@ async function bootstrap() {
   const port = process.env.PORT || 4000;
   await app.listen(port);
   console.log(`🚀 Femmeva API corriendo en el puerto ${port}`);
+
+  console.log(
+    '🔥 FEMMEVA API — Versión de despliegue:',
+    new Date().toISOString(),
+  );
 }
 bootstrap();
